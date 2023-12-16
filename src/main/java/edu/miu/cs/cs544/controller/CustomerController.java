@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.controller;
 
 import edu.miu.cs.cs544.domain.ProductType;
 import edu.miu.cs.cs544.dto.CustomerRegisterRequest;
+import edu.miu.cs.cs544.dto.CustomerResponseDto;
 import edu.miu.cs.cs544.dto.ListProductRequest;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
 import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
@@ -24,12 +25,15 @@ public class CustomerController {
 
     @PostMapping("/hello")
     public ResponseEntity<?> hello(){
+
         return new ResponseEntity<>("Welcome", HttpStatus.OK);
     }
-    @PostMapping
+    @PostMapping("/abc")
     public ResponseEntity<?> register(@RequestBody CustomerRegisterRequest request){
 
-        return new ResponseEntity<>(customerService.register(request), HttpStatus.OK) ;
+var response = customerService.register(request);
+        return new ResponseEntity<CustomerResponseDto>(response, HttpStatus.OK) ;
+//        return new ResponseEntity<>(, HttpStatus.OK);
     }
 
 
