@@ -13,6 +13,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+
     @Override
     public List<Reservation> getAllReservations() {
         return reservationRepository.findAll();
@@ -27,7 +28,6 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation createReservation(Reservation reservation) {
         return reservationRepository.save(reservation);
     }
-
     @Override
     public void deleteReservation(Integer id) {
         reservationRepository.deleteById(id);

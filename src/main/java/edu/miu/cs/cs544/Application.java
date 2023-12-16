@@ -57,7 +57,8 @@ public class Application implements CommandLineRunner {
         customer.setLastName("Lastname");
         customer.setPhysicalAddress(physicalAddress);
         customer.setBillingAddress(billing);
-        customerRepository.save(customer);
+
+
 
         repository.save(new User("user1",encoder.encode("123456789"), UserType.CUSTOMER));
         var response = loginService.login(new LoginRequest("user1","123456789"));
