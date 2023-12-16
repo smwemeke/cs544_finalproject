@@ -1,9 +1,10 @@
 package edu.miu.cs.cs544;
 
-import edu.miu.cs.cs544.domain.User;
-import edu.miu.cs.cs544.domain.UserType;
+import edu.miu.cs.cs544.domain.*;
 import edu.miu.cs.cs544.dto.LoginRequest;
+import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.UserRepository;
+import edu.miu.cs.cs544.service.CustomerService;
 import edu.miu.cs.cs544.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +28,8 @@ public class Application implements CommandLineRunner {
 
     @Autowired
     LoginService loginService;
+    @Autowired
+    CustomerRepository customerRepository;
    static ApplicationContext context;
 
     public static void main(String[] args) {
@@ -36,6 +39,22 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        Address physicalAddress = new Address();
+        physicalAddress.setCity("City1");
+        physicalAddress.setType(AddressType.PHYSICAL);
+        Address billing = new Address();
+        billing.setCity("City1");
+        billing.setType(AddressType.BILLING);
+
+        Customer customer = new Customer();
+        customer.setEmail("sample@email.com");
+        customer.setFirstName("firstName");
+        customer.setLastName("Lastname");
+        customer.setPhysicalAddress(physicalAddress);
+        customer.setBillingAddress(billing);
+        customerRepository.save(customer);
+
         repository.save(new User("user1",encoder.encode("123456789"), UserType.CUSTOMER));
         var response = loginService.login(new LoginRequest("user1","123456789"));
         System.out.println(response);

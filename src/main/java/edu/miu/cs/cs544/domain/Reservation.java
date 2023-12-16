@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -15,6 +16,7 @@ public class Reservation {
     @JoinColumn(name = "customerId")
     private Customer customer;
 
+    private LocalDate reservationDate;
     @Enumerated
     private ReservationState state;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

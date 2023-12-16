@@ -19,10 +19,10 @@ public class Customer {
 	@Embedded
 	private AuditData auditData;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address physicalAddress;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
 
 	@OneToOne(mappedBy = "customer")

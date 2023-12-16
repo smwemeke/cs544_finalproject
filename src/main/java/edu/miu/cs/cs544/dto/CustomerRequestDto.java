@@ -4,7 +4,6 @@ import edu.miu.cs.cs544.domain.Address;
 import jakarta.persistence.ManyToOne;
 
 public class CustomerRequestDto {
-    private Integer id;
 
     private String firstName;
 
