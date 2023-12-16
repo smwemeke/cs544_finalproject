@@ -17,7 +17,7 @@ public class Reservation {
 
     @Enumerated
     private ReservationState state;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Item> items;
     @Embedded
     private AuditData auditData;

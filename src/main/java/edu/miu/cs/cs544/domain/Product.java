@@ -22,5 +22,7 @@ public class Product {
 	private ProductType type;
 	@Embedded
 	private AuditData auditData;
+
+	private boolean isAvailable;
 	
 }

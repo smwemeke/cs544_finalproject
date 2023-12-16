@@ -8,28 +8,28 @@ import lombok.Data;
 @Entity
 @Data
 public class Item {
-	@Id
-	@GeneratedValue
-	private Integer id;
-	
-	private Integer occupants;
-	
-	private LocalDate checkinDate;
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-	private LocalDate checkoutDate;
+    private Integer occupants;
 
-	private Double rate;
+    private LocalDate checkinDate;
 
-	private Integer unit;
+    private LocalDate checkoutDate;
 
-	@ManyToOne
-	@JoinColumn(name="orderId")
-	private Reservation order;
+    private Double rate;
 
-	@ManyToOne
-	private Product product;
+    private Integer unit;
 
-	@Embedded
-	private AuditData auditData;
-	
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private Reservation order;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Product product;
+
+    @Embedded
+    private AuditData auditData;
+
 }
