@@ -3,6 +3,7 @@ package edu.miu.cs.cs544;
 import edu.miu.cs.cs544.domain.*;
 import edu.miu.cs.cs544.dto.LoginRequest;
 import edu.miu.cs.cs544.repository.CustomerRepository;
+import edu.miu.cs.cs544.repository.ProductRepository;
 import edu.miu.cs.cs544.repository.UserRepository;
 import edu.miu.cs.cs544.service.CustomerService;
 import edu.miu.cs.cs544.service.LoginService;
@@ -22,6 +23,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Application implements CommandLineRunner {
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -58,5 +62,8 @@ public class Application implements CommandLineRunner {
         repository.save(new User("user1",encoder.encode("123456789"), UserType.CUSTOMER));
         var response = loginService.login(new LoginRequest("user1","123456789"));
         System.out.println(response);
+
+        //Create Product 1
+        productRepository.save(Product.builder().name("Product1").maxCapacity(3).rate(250.0).build());
     }
 }

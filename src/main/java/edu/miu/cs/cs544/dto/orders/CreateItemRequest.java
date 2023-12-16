@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateItemRequest {
-    String productId;
+    Integer productId;
     Double rate;
     Integer occupants;
     Integer unit;
