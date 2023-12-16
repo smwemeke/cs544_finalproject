@@ -1,20 +1,13 @@
 package edu.miu.cs.cs544.dto;
 
 import edu.miu.cs.cs544.domain.ProductType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class ListProductRequest extends Pageable {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ListProductRequest {
     ProductType type;
-
-    public ListProductRequest(ProductType type, Integer page, Integer len) {
-        super( page, len);
-        this.type = type;
-    }
-
-    public ProductType getType() {
-        return type;
-    }
-
-    public void setType(ProductType type) {
-        this.type = type;
-    }
 }

@@ -1,7 +1,9 @@
 package edu.miu.cs.cs544.dto.orders;
 
-import java.util.List;
+import lombok.Data;
 
+import java.util.List;
+@Data
 public class PlaceOrderRequest {
 
     private String customerId;

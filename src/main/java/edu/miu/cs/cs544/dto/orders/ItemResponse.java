@@ -1,9 +1,10 @@
 package edu.miu.cs.cs544.dto.orders;
 
 import edu.miu.cs.cs544.domain.Item;
+import lombok.Data;
 
 import java.time.LocalDate;
-
+@Data
 public class ItemResponse {
     private Integer id;
 
