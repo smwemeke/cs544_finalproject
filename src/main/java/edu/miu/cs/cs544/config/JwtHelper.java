@@ -18,7 +18,7 @@ public class JwtHelper {
 
     public String generateToken(UserDetailDto user) {
         return Jwts.builder()
-                .setSubject(user.getEmail())
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .claim("user", user)
@@ -90,14 +90,14 @@ public class JwtHelper {
     }
 
 
-    public String getEmailFromToken(String token) {
+    public String getUserNameFromToken(String token) {
         String result = null;
         try {
-            result = Jwts.parser()
+            var body = Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
+                    .getBody();
+            result = body.getSubject();
         } catch (ExpiredJwtException e) {
             System.out.println(e.getMessage());
             throw e;
