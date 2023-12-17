@@ -6,6 +6,7 @@ import edu.miu.cs.cs544.domain.ReservationState;
 import edu.miu.cs.cs544.dto.orders.CreateItemRequest;
 import edu.miu.cs.cs544.dto.orders.OrderResponse;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
+import edu.miu.cs.cs544.dto.orders.UpdateOrderRequest;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.OrderRepository;
 import edu.miu.cs.cs544.repository.ProductRepository;
@@ -55,5 +56,12 @@ public class OrderServiceImpl implements OrderService {
         var orders = orderRepository.findByReservationDateAndItemsProductIdIn(date, items.stream().map(i->i.getProductId()).toList());
         var count = orders.stream().filter(o->o.getState() != ReservationState.Cancelled && o.getState()!= ReservationState.Departed).count();
         return count==0;
+    }
+
+    @Override
+    public OrderResponse updateOrder(UpdateOrderRequest request) {
+        var order = orderRepository.findByItemsId(request.getOrderId());
+        order.setReservationDate(request.getReservationDate());
+        return new OrderResponse().buildFromDomain(order);
     }
 }

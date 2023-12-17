@@ -1,7 +1,10 @@
 package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +12,8 @@ import java.util.Collection;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 public class User  extends AuditableEntity  implements UserDetails {
 	@Id
 	@GeneratedValue
