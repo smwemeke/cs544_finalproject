@@ -4,6 +4,9 @@ import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.domain.ProductType;
 import jakarta.persistence.Enumerated;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductResponse {
     private Integer id;
 
@@ -27,5 +30,10 @@ public class ProductResponse {
         maxCapacity = p.getMaxCapacity();
         type= p.getType();
         return this;
+    }
+    public List<ProductResponse> buildProductResponseListFromProductList(List<Product> products){
+        List<ProductResponse> productResponses = new ArrayList<>();
+        products.stream().forEach(p->productResponses.add(buildFromDomain(p)));
+        return productResponses;
     }
 }
