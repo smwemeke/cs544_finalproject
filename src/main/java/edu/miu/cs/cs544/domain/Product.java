@@ -21,6 +21,7 @@ public class Product {
 	private String excerpt;
 
 	private Double rate;
+
 	private Integer maxCapacity;
 	@Enumerated
 	private ProductType type;

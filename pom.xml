@@ -108,6 +108,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>EA-final-project</finalName>
 	</build>
 
 </project>
