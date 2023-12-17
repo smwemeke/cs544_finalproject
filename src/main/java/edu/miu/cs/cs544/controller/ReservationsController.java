@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
+import edu.miu.cs.cs544.dto.orders.UpdateOrderRequest;
 import edu.miu.cs.cs544.integration.jms.JMSSender;
 import edu.miu.cs.cs544.service.OrderService;
 import jakarta.validation.Valid;
@@ -28,10 +29,11 @@ public class ReservationsController {
 
         return new ResponseEntity<>(orderService.getOrder(orderId), HttpStatus.OK);
     }
-//    @GetMapping("/available/{productId}")
-//    public ResponseEntity<?> checkProductAvailable(@PathVariable Integer productId){
-//        return new ResponseEntity<>(customerService.isAvailable(productId), HttpStatus.OK) ;
-//    }
+    @PutMapping("/{orderId}")
+    public ResponseEntity<?> checkProductAvailable(@PathVariable Integer orderId, @RequestBody UpdateOrderRequest request){
+
+        return new ResponseEntity<>(orderService.updateOrder(request), HttpStatus.OK) ;
+    }
 
     @PostMapping
     public ResponseEntity<?> placeOrder(@Valid @RequestBody PlaceOrderRequest request) {

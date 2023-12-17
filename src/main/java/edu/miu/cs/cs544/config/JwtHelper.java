@@ -1,10 +1,13 @@
 package edu.miu.cs.cs544.config;
 
+import edu.miu.cs.cs544.domain.User;
+import edu.miu.cs.cs544.domain.UserType;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -62,6 +65,16 @@ public class JwtHelper {
                 .getSubject();
     }
 
+    public User getLoggedInUser(String token){
+        var tokenBody =  Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+        LinkedHashMap map = (LinkedHashMap) tokenBody.get("user");
+        return User.builder().id((Integer) map.get("userId"))
+                .userName(map.get("username").toString())
+                .type(((boolean)map.get("admin"))== false? UserType.CUSTOMER:UserType.ADMIN).build();
+    }
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
