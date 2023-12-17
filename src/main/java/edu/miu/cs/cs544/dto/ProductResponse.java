@@ -3,9 +3,7 @@ package edu.miu.cs.cs544.dto;
 import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.domain.ProductType;
 import jakarta.persistence.Enumerated;
-import lombok.Data;
 
-@Data
 public class ProductResponse {
     private Integer id;
 

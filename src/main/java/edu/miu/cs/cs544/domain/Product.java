@@ -1,14 +1,10 @@
 package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
 public class Product {
 	@Id
 	@GeneratedValue
@@ -29,7 +25,5 @@ public class Product {
 	private AuditData auditData;
 
 	private boolean isAvailable;
-
-	public Product() {
-	}
+	
 }
