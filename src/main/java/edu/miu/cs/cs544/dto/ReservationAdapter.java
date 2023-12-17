@@ -10,6 +10,6 @@ public class ReservationAdapter {
     }
     public static Reservation getReservation(ReservationDto reservationDto) {
         return new Reservation(reservationDto.getId(), null,reservationDto.getReservationDate(),
-                reservationDto.getState(), reservationDto.getItemIds(),reservationDto.getAuditData());
+                reservationDto.getState(), reservationDto.getItemIds());
     }
 }

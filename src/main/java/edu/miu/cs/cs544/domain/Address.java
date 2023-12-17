@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Address {
+public class Address extends AuditableEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -19,8 +19,7 @@ public class Address {
 	private String postalCode;
 	@Enumerated
 	private AddressType type;
-	@Embedded
-	private AuditData auditData;
+
 
 	@ManyToOne
 	private State state;

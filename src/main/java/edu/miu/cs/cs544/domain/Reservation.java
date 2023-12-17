@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reservation {
+public class Reservation  extends AuditableEntity {
     @Id
     @GeneratedValue
     private Integer id;
@@ -25,7 +25,6 @@ public class Reservation {
     private ReservationState state;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Item> items;
-    @Embedded
-    private AuditData auditData;
+
 
 }

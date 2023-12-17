@@ -36,6 +36,7 @@ public class OrderServiceImpl implements OrderService {
         var items = orderRequest.getItems().stream().map(i -> {
             var p = productRepository.getReferenceById(i.getProductId());
             var item = new Item().buildFromDto(i);
+            item.setOrder(res);
             item.setProduct(p);
             return item;
         }).toList();

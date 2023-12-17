@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService{
     public ProductResponse createProduct(String name, String description, String excerpt, double rate, int maxCapacity, ProductType type) {
 
         ProductResponse productResponse = new ProductResponse();
-        Product product = new Product(name,description,excerpt,rate,maxCapacity,type);
+        Product product = Product.builder().name(name).description(description).excerpt(excerpt).rate(rate).maxCapacity(maxCapacity).type(type).build();
         productRepository.save(product);
         return productResponse.buildFromDomain(product);
     }
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductResponse> getAllProducts() {
         ProductResponse productResponse = new ProductResponse();
         List<Product> products = productRepository.findAll();
-        return productResponse.buildProductResponseListFromProductList(products);
+        return products.stream().map(p-> new ProductResponse().buildFromDomain(p)).toList();
     }
 
 //    @Override

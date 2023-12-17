@@ -34,7 +34,7 @@ public class Application implements CommandLineRunner {
     LoginService loginService;
     @Autowired
     CustomerRepository customerRepository;
-   static ApplicationContext context;
+    static ApplicationContext context;
 
     public static void main(String[] args) {
 
@@ -58,10 +58,10 @@ public class Application implements CommandLineRunner {
         customer.setPhysicalAddress(physicalAddress);
         customer.setBillingAddress(billing);
 
+        customerRepository.save(customer);
 
-
-        repository.save(new User("user1",encoder.encode("123456789"), UserType.CUSTOMER));
-        var response = loginService.login(new LoginRequest("user1","123456789"));
+        repository.save(new User("user1", encoder.encode("123456789"), UserType.CUSTOMER));
+        var response = loginService.login(new LoginRequest("user1", "123456789"));
         System.out.println(response);
 
         //Create Product 1

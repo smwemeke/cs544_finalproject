@@ -1,6 +1,10 @@
 package edu.miu.cs.cs544.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
+import edu.miu.cs.cs544.integration.jms.JMSSender;
 import edu.miu.cs.cs544.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +17,13 @@ public class ReservationsController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    JMSSender sender;
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<?> getOrderDetail(@PathVariable Integer orderId){
+    public ResponseEntity<?> getOrderDetail(@PathVariable Integer orderId) {
 
-        return new ResponseEntity<>(orderService.getOrder(orderId), HttpStatus.OK) ;
+        return new ResponseEntity<>(orderService.getOrder(orderId), HttpStatus.OK);
     }
 //    @GetMapping("/available/{productId}")
 //    public ResponseEntity<?> checkProductAvailable(@PathVariable Integer productId){
@@ -25,12 +31,22 @@ public class ReservationsController {
 //    }
 
     @PostMapping
-    public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderRequest request){
+    public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderRequest request) {
         //TODO Check product available
 
-        return new ResponseEntity<>(orderService.placeOrder(request), HttpStatus.OK) ;
+        return new ResponseEntity<>(orderService.placeOrder(request), HttpStatus.OK);
     }
 
+    @PostMapping("/asyncs")
+    public ResponseEntity<?> placeOrderAsync(@RequestBody PlaceOrderRequest request) throws JsonProcessingException {
+        //put to queue
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        String requestString = objectMapper.writeValueAsString(request);
+        sender.send("placeorderrequest", requestString);
+        return new ResponseEntity<>("Order is Successfully placed, you will receive confirmation within 24 hrs", HttpStatus.ACCEPTED);
+    }
 
 //    @PostMapping("/items/{itemId}/checkins")
 //    public ResponseEntity<?> checkIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
