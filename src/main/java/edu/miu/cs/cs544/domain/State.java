@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class State {
+public class State  extends AuditableEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -13,8 +13,7 @@ public class State {
 	private String code;
 	
 	private String name;
-	@Embedded
-	private AuditData auditData;
+
 
 	@ManyToOne
 	private Country country;

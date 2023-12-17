@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @Entity
 @Data
-public class User implements UserDetails {
+public class User  extends AuditableEntity  implements UserDetails {
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -21,8 +21,7 @@ public class User implements UserDetails {
 	private Boolean active;
 	@Enumerated
 	private UserType type;
-	@Embedded
-	private AuditData auditData;
+
 
 	@OneToOne
 	private Customer customer;

@@ -1,11 +1,17 @@
 package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class Product {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Product  extends AuditableEntity  {
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -17,11 +23,10 @@ public class Product {
 	private String excerpt;
 
 	private Double rate;
+
 	private Integer maxCapacity;
 	@Enumerated
 	private ProductType type;
-	@Embedded
-	private AuditData auditData;
 
 	private boolean isAvailable;
 	
