@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
 import edu.miu.cs.cs544.dto.orders.UpdateOrderRequest;
+import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
 import edu.miu.cs.cs544.integration.jms.JMSSender;
+import edu.miu.cs.cs544.service.CustomerService;
 import edu.miu.cs.cs544.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationsController {
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    CustomerService customerService;
 
     @Autowired
     JMSSender sender;
@@ -56,24 +61,29 @@ public class ReservationsController {
         return new ResponseEntity<>("Order is Successfully placed, you will receive confirmation within 24 hrs", HttpStatus.ACCEPTED);
     }
 
-//    @PostMapping("/items/{itemId}/checkins")
-//    public ResponseEntity<?> checkIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-//        //TODO validate customer validat for this item
-//
-//        return new ResponseEntity<>(customerService.checkIn(request), HttpStatus.OK) ;
-//    }
-//
-//    @PostMapping("/orders/items/{itemId}/checkouts")
-//    public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-//        //TODO validate customer validat for this item
-//
-//        return new ResponseEntity<>(customerService.checkOut(request), HttpStatus.OK) ;
-//    }
+    @PostMapping("/orders/items/{itemId}/checkins")
+    public ResponseEntity<?> CheckIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+        int customerId = request.getCustomerId();
+        if (!customerService.existsById(customerId)){
+            return  new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(customerService.checkIn(request), HttpStatus.OK) ;
+    }
 
-//    @PostMapping("/orders/items/{itemId}/cancels")
-//    public ResponseEntity<?> cancel(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-//        //TODO validate customer validat for this item
-//
-//        return new ResponseEntity<>(customerService.cancel(request), HttpStatus.OK) ;
-//    }
+    @PostMapping("/orders/items/{itemId}/checkouts")
+    public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+         int customerId = request.getCustomerId();
+         if(!customerService.existsById(customerId)){
+             return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+         }
+        return new ResponseEntity<>(customerService.checkOut(request), HttpStatus.OK) ;
+    }
+    @PostMapping("/orders/items/{itemId}/cancels")
+    public ResponseEntity<?> cancel(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+        int customerId = request.getCustomerId();
+        if(!customerService.existsById(customerId)){
+            return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(customerService.cancel(request), HttpStatus.OK) ;
+    }
 }
