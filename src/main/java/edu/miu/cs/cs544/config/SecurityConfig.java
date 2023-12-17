@@ -68,22 +68,23 @@ public class SecurityConfig{
                         httpSecurityCsrfConfigurer.disable();
                     }
                 })
+
                 .authorizeRequests()
-                .requestMatchers("/actuator/**").permitAll()
-                //.requestMatchers("/customers/orders/items/**").authenticated()
-                .requestMatchers("/customers").permitAll()
-                .requestMatchers("/customers/**").permitAll()
-                .requestMatchers("/logins/**").permitAll()
-                .requestMatchers("/admin/**").authenticated()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement(new Customizer<SessionManagementConfigurer<HttpSecurity>>() {
-                    @Override
-                    public void customize(SessionManagementConfigurer<HttpSecurity> httpSecuritySessionManagementConfigurer) {
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                    }
-                });
+                .requestMatchers("/**").permitAll();
+//                .requestMatchers("/actuator/**").permitAll()
+//                .requestMatchers("/customers").permitAll()
+//                .requestMatchers("/customers/**").permitAll()
+//                .requestMatchers("/logins/**").permitAll()
+//                .requestMatchers("/admin/**").authenticated()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .sessionManagement(new Customizer<SessionManagementConfigurer<HttpSecurity>>() {
+//                    @Override
+//                    public void customize(SessionManagementConfigurer<HttpSecurity> httpSecuritySessionManagementConfigurer) {
+//                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                    }
+//                });
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -24,14 +24,5 @@ public class Product {
 	private AuditData auditData;
 
 	private boolean isAvailable;
-	public Product(){}
-
-	public Product(String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type) {
-		this.name = name;
-		this.description = description;
-		this.excerpt = excerpt;
-		this.rate = rate;
-		this.maxCapacity = maxCapacity;
-		this.type = type;
-	}
+	
 }

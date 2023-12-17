@@ -3,9 +3,10 @@ package edu.miu.cs.cs544.dto.orders;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.domain.ReservationState;
 import edu.miu.cs.cs544.dto.CustomerResponseDto;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 public class OrderResponse {
 
     private Integer id;

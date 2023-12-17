@@ -1,5 +1,8 @@
 package edu.miu.cs.cs544.dto;
 
+import lombok.Data;
+
+@Data
 public class ErrorResponse {
 
     private int errorCode;

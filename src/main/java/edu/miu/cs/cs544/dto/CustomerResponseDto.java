@@ -1,7 +1,9 @@
 package edu.miu.cs.cs544.dto;
 
 import edu.miu.cs.cs544.domain.Customer;
+import lombok.Data;
 
+@Data
 public class CustomerResponseDto {
     private Integer id;
 
@@ -27,4 +29,5 @@ public class CustomerResponseDto {
        setValue(c);
         return this;
     }
+
 }

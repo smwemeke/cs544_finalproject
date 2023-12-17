@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.domain;
 
 import java.time.LocalDate;
 
+import edu.miu.cs.cs544.dto.orders.CreateItemRequest;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -31,5 +32,12 @@ public class Item {
 
     @Embedded
     private AuditData auditData;
+
+    public Item buildFromDto(CreateItemRequest request){
+        occupants = request.getOccupants();
+        rate = request.getRate();
+        unit = request.getUnit();
+        return this;
+    }
 
 }
