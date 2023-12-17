@@ -20,4 +20,6 @@ public interface CustomerService {
     boolean cancel(StateChangeRequest request);
     boolean checkOut(StateChangeRequest request);
 
+    boolean existsById(int customerId);
+
 }
