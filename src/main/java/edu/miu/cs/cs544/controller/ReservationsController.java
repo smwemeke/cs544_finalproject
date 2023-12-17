@@ -6,13 +6,16 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
 import edu.miu.cs.cs544.integration.jms.JMSSender;
 import edu.miu.cs.cs544.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/reservations")
+@Validated
 public class ReservationsController {
     @Autowired
     OrderService orderService;
@@ -31,9 +34,12 @@ public class ReservationsController {
 //    }
 
     @PostMapping
-    public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderRequest request) {
+    public ResponseEntity<?> placeOrder(@Valid @RequestBody PlaceOrderRequest request) {
         //TODO Check product available
-
+        var isAvailable = orderService.isAvailable(request.getReservationDate(), request.getItems());
+        if (!isAvailable) {
+            return new ResponseEntity<>("Product is not available in the reservation date: " + request.getReservationDate(), HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(orderService.placeOrder(request), HttpStatus.OK);
     }
 

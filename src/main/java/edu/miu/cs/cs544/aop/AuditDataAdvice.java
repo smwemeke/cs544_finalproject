@@ -11,13 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Aspect
 @Configuration
 public class AuditDataAdvice {
-    @Before("execution(* edu.miu.cs.cs544.repository.*.save(..))")
-    public void setAuditdata(JoinPoint jp){
-        System.out.println("Advice Audit work...............");
-        if((AuditableEntity.class).isAssignableFrom(jp.getArgs()[0].getClass())){
-            ((AuditableEntity)jp.getArgs()[0]).getAuditData();
-        }
-    }
 
     @Around("execution(* edu.miu.cs.cs544.repository.*.save(..))")
     public void setAuditDataRound(ProceedingJoinPoint jp) throws Throwable {

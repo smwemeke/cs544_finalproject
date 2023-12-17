@@ -18,6 +18,7 @@ public class ItemResponse {
 
     private Integer unit;
 
+    private Integer productId;
     public ItemResponse buildFromDomain(Item i){
         id=i.getId();
         occupants =i.getOccupants();
@@ -25,6 +26,7 @@ public class ItemResponse {
         checkoutDate =i.getCheckoutDate();
         rate= i.getRate();
         unit = i.getUnit();
+        productId = i.getProduct().getId();
         return this;
     }
 }
