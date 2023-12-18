@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author Yenatfanta
  */
@@ -19,10 +20,15 @@ public class ProductServiceImpl implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public ProductResponse createProduct(int id,String name, String description, String excerpt, double rate, int maxCapacity, ProductType type,boolean isAvailable) {
-
-        ProductResponse productResponse = new ProductResponse();
-        Product product = new Product(id,name,description,excerpt,rate,maxCapacity,type,isAvailable);
+    public ProductResponse createProduct(ProductResponse productResponse){
+        Product product = new Product();
+        product.setName(productResponse.getName());
+        product.setDescription(productResponse.getDescription());
+        product.setRate(productResponse.getRate());
+        product.setMaxCapacity(productResponse.getMaxCapacity());
+        product.setExcerpt(productResponse.getExcerpt());
+        product.setAvailable(productResponse.isAvailable());
+        product.setType(productResponse.getType());
         productRepository.save(product);
         return productResponse.buildFromDomain(product);
     }
@@ -44,9 +50,26 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<ProductResponse> getAllProducts() {
-        ProductResponse productResponse = new ProductResponse();
-        List<Product> products = productRepository.findAll();
-        return productResponse.buildProductResponseListFromProductList(products);
+
+        List<ProductResponse> products = productRepository.findAll().stream().map(p->new ProductResponse().buildFromDomain(p)).toList();
+       return products;
+
+    }
+    @Override
+    public ProductResponse updateProduct(int id,ProductResponse productResponse){
+        Product product = productRepository.findById(id);
+        if(product!=null){
+            product.setName(productResponse.getName());
+            product.setDescription(productResponse.getDescription());
+            product.setRate(productResponse.getRate());
+            product.setMaxCapacity(productResponse.getMaxCapacity());
+            product.setExcerpt(productResponse.getExcerpt());
+            product.setAvailable(productResponse.isAvailable());
+            product.setType(productResponse.getType());
+            productRepository.save(product);
+        }
+
+        return productResponse.buildFromDomain(product);
     }
     public List<ProductResponse> findAvailableProducts(){
         List<ProductResponse> availableProducts = new ArrayList<>();

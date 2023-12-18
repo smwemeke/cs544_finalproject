@@ -49,21 +49,6 @@ public class ReservationsControllerTests {
 
     @MockBean
     OrderRepository orderRepository;
-//
-//    Account acc = new Account("11111",10000,"Alice_Smith");
-//    AccountResponse accResponse =  new AccountResponse(acc.getAccountNumber(),acc.getBalance(),acc.getAccountHolder());
-//    @Before
-//    public void setup(){
-//
-//        Mockito.when(accountService.getAccount(acc.getAccountNumber())).thenReturn(accResponse);
-//        //Mockito.when(accountService.getAccount(acc.getAccountNumber())).thenReturn(accResponse);
-//    }
-//    @Test
-//    public void getAccount_Test_success() throws Exception {
-//        mockMvc.perform(get("/reservations/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.accountNumber").value(acc.getAccountNumber()));
-//    }
 
     @Test
     public void createReservation_Test_success() throws Exception {
