@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Customer {
+public class Customer  extends AuditableEntity {
 
 	@Id
 	@GeneratedValue
@@ -16,8 +16,7 @@ public class Customer {
 	private String lastName;
 
 	private String email;
-	@Embedded
-	private AuditData auditData;
+
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address physicalAddress;
@@ -52,13 +51,6 @@ public class Customer {
 		this.email = email;
 	}
 
-	public AuditData getAuditData() {
-		return auditData;
-	}
-
-	public void setAuditData(AuditData auditData) {
-		this.auditData = auditData;
-	}
 
 	public Address getPhysicalAddress() {
 		return physicalAddress;

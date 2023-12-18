@@ -70,21 +70,21 @@ public class SecurityConfig{
                 })
 
                 .authorizeRequests()
-                .requestMatchers("/**").permitAll();
-//                .requestMatchers("/actuator/**").permitAll()
-//                .requestMatchers("/customers").permitAll()
-//                .requestMatchers("/customers/**").permitAll()
-//                .requestMatchers("/logins/**").permitAll()
-//                .requestMatchers("/admin/**").authenticated()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .sessionManagement(new Customizer<SessionManagementConfigurer<HttpSecurity>>() {
-//                    @Override
-//                    public void customize(SessionManagementConfigurer<HttpSecurity> httpSecuritySessionManagementConfigurer) {
-//                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                    }
-//                });
+                //.requestMatchers("/**").permitAll();
+                .requestMatchers("/actuator/**").permitAll()
+                .requestMatchers("/reservations").permitAll()
+                .requestMatchers("/reservations/**").permitAll()
+                .requestMatchers("/logins/**").permitAll()
+                .requestMatchers("/admin/**").authenticated()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .sessionManagement(new Customizer<SessionManagementConfigurer<HttpSecurity>>() {
+                    @Override
+                    public void customize(SessionManagementConfigurer<HttpSecurity> httpSecuritySessionManagementConfigurer) {
+                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    }
+                });
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -47,10 +47,10 @@ public class ProductControllerTest {
     @Test
     void testCreateProduct(){
         ProductResponse mockResponse = new ProductResponse("hotel","2 bed and 1 bath suite","",50.0, 3,ProductType.Room,true);
-        ResponseEntity<?> responseEntity = productController.createProduct(1, "TestProduct", "Description", "Excerpt", 10.0, 100, ProductType.Room);
+        ResponseEntity<?> responseEntity = productController.createProduct(1, "TestProduct", "Description", "Excerpt", 10.0, 100, ProductType.Room,true);
 
 
-        verify(productService, times(1)).createProduct(1,"hotel","2 bed and 1 bath suite","",50.0, 3,ProductType.Room);
+        verify(productService, times(1)).createProduct(1,"hotel","2 bed and 1 bath suite","",50.0, 3,ProductType.Room,true);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(mockResponse, responseEntity.getBody());
 

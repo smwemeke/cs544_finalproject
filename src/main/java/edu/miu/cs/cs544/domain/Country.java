@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Country {
+public class Country extends AuditableEntity  {
 	
 	@Id
 	private String code;
@@ -16,8 +16,6 @@ public class Country {
 	private String name;
 	
 	private Integer population;
-	
-	@Embedded
-	private AuditData auditData;
+
 	
 }

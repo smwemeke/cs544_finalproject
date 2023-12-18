@@ -19,10 +19,10 @@ public class ProductServiceImpl implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public ProductResponse createProduct(int id,String name, String description, String excerpt, double rate, int maxCapacity, ProductType type) {
+    public ProductResponse createProduct(int id,String name, String description, String excerpt, double rate, int maxCapacity, ProductType type,boolean isAvailable) {
 
         ProductResponse productResponse = new ProductResponse();
-        Product product = new Product(id,name,description,excerpt,rate,maxCapacity,type,true);
+        Product product = new Product(id,name,description,excerpt,rate,maxCapacity,type,isAvailable);
         productRepository.save(product);
         return productResponse.buildFromDomain(product);
     }

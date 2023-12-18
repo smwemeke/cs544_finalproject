@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +35,7 @@ public class Application implements CommandLineRunner {
     LoginService loginService;
     @Autowired
     CustomerRepository customerRepository;
-   static ApplicationContext context;
+    static ApplicationContext context;
 
     public static void main(String[] args) {
 
@@ -58,10 +59,10 @@ public class Application implements CommandLineRunner {
         customer.setPhysicalAddress(physicalAddress);
         customer.setBillingAddress(billing);
 
+        customerRepository.save(customer);
 
-
-        repository.save(new User("user1",encoder.encode("123456789"), UserType.CUSTOMER));
-        var response = loginService.login(new LoginRequest("user1","123456789"));
+        repository.save(new User("user1", encoder.encode("123456789"), UserType.CUSTOMER));
+        var response = loginService.login(new LoginRequest("user1", "123456789"));
         System.out.println(response);
 
         //Create Product 1

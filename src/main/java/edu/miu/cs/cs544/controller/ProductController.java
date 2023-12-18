@@ -24,9 +24,10 @@ public class ProductController {
                                            @RequestParam("excerpt") String excerpt,
                                            @RequestParam("rate" ) double rate,
                                            @RequestParam("maxCapacity" )int capacity,
-                                           @RequestParam("type")ProductType type
+                                           @RequestParam("type")ProductType type,
+                                           @RequestParam("isAvailable") boolean isAvailable
                                            ){
-      ProductResponse productResponse = productService.createProduct(id,name,description,excerpt,rate,capacity,type);
+      ProductResponse productResponse = productService.createProduct(id,name,description,excerpt,rate,capacity,type,isAvailable);
         return new ResponseEntity<ProductResponse>(productResponse, HttpStatus.OK);
 
     }

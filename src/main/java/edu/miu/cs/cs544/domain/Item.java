@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Item {
+public class Item  extends AuditableEntity {
     @Id
     @GeneratedValue
     private Integer id;
@@ -30,8 +30,7 @@ public class Item {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Product product;
 
-    @Embedded
-    private AuditData auditData;
+
 
     public Item buildFromDto(CreateItemRequest request){
         occupants = request.getOccupants();
