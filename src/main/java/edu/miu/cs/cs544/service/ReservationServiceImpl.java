@@ -1,13 +1,17 @@
 package edu.miu.cs.cs544.service;
 
 import edu.miu.cs.cs544.domain.Customer;
+import edu.miu.cs.cs544.domain.Item;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.dto.ReservationAdapter;
 import edu.miu.cs.cs544.dto.ReservationDto;
+import edu.miu.cs.cs544.dto.orders.OrderResponse;
 import edu.miu.cs.cs544.repository.CustomerRepository;
+import edu.miu.cs.cs544.repository.ProductRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +23,8 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public List<Reservation> getAllReservations() {
@@ -41,29 +47,37 @@ public class ReservationServiceImpl implements ReservationService {
 //    }
 
     @Override
-    public ReservationDto createReservation(ReservationDto reservationDto) {
-        Reservation reservation = ReservationAdapter.getReservation(reservationDto);
+    @Transactional
+    public OrderResponse createReservation(ReservationDto reservationDto) {
+        Reservation reservation =  new Reservation();
         Customer customer = customerRepository.findById(reservationDto.getCustomerId()).orElse(null);
         if (customer == null) {
             throw new IllegalArgumentException("Customer with id " + reservationDto.getCustomerId() + " does not exist");
         }
         reservation.setCustomer(customer);
-        return ReservationAdapter.getReservationDto(reservationRepository.save(reservation));
+        reservation.setReservationDate(reservationDto.getReservationDate());
+        var items = reservationDto.getItems().stream().map(i -> {
+            var p = productRepository.getReferenceById(i.getProductId());
+            var item = new Item().buildFromDto(i);
+            item.setOrder(reservation);
+            item.setProduct(p);
+            return item;
+        }).toList();
+        reservation.setItems(items);
+//        reservationRepository.save(reservation);
+        var savedReservation = reservationRepository.save(reservation);
+
+        return ReservationAdapter.getReservationDto(reservation);
     }
 
     @Override
-    public ReservationDto updateReservation(Integer id, ReservationDto updatedReservationDto) {
-        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
-        if (!optionalReservation.isPresent()) {
-            return null;
-        }
-        Reservation existingReservation = optionalReservation.get();
-        Reservation updatedReservation = ReservationAdapter.getReservation(updatedReservationDto);
-        existingReservation.setReservationDate(updatedReservation.getReservationDate());
-        existingReservation.setState(updatedReservation.getState());
-        //existingReservation.setCustomer(updatedReservation.getCustomer());
-        Reservation savedReservation = reservationRepository.save(existingReservation);
-        return ReservationAdapter.getReservationDto(savedReservation);
+    public OrderResponse updateReservation(Integer id, ReservationDto updatedReservationDto) {
+
+        var reservation = reservationRepository.findById(id).get();
+        reservation.setReservationDate(updatedReservationDto.getReservationDate());
+        //return ReservationAdapter.getReservationDto(reservationRepository.save(reservation));
+
+        return new OrderResponse().buildFromDomain(reservation);
     }
     @Override
     public void deleteReservation(Integer id) {

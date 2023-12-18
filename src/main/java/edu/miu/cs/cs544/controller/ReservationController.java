@@ -3,6 +3,7 @@ package edu.miu.cs.cs544.controller;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.dto.ReservationAdapter;
 import edu.miu.cs.cs544.dto.ReservationDto;
+import edu.miu.cs.cs544.dto.orders.OrderResponse;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +49,14 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
+    public ResponseEntity<?> createReservation(@RequestBody ReservationDto reservationDto) {
 
         return new ResponseEntity<>(reservationService.createReservation(reservationDto),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateReservation(@PathVariable Integer id, @RequestBody ReservationDto reservationDto) {
-        ReservationDto updatedReservationDto = reservationService.updateReservation(id, reservationDto);
+        OrderResponse updatedReservationDto = reservationService.updateReservation(id, reservationDto);
         if (updatedReservationDto == null) {
             return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
         }
