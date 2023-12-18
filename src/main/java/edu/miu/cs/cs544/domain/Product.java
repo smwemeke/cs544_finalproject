@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Product  extends AuditableEntity  {
 	@Id
 	@GeneratedValue
@@ -44,5 +44,6 @@ public class Product  extends AuditableEntity  {
 		//	this.auditData = auditData;
 		this.isAvailable = isAvailable;
 	}
+	public Product(){}
 
 }

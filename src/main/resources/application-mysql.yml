@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ea_final?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://ea-final-db.crykiiyuw0y2.us-east-1.rds.amazonaws.com:5050/eafinal?useSSL=false
     username: root
-    password: root
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

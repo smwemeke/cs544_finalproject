@@ -69,7 +69,6 @@ public class ReservationsController {
         }
         return new ResponseEntity<>(customerService.checkIn(request), HttpStatus.OK) ;
     }
-
     @PostMapping("/orders/items/{itemId}/checkouts")
     public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
          int customerId = request.getCustomerId();
