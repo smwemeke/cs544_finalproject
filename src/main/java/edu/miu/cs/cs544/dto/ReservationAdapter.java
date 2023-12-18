@@ -1,15 +1,14 @@
 package edu.miu.cs.cs544.dto;
 
+import edu.miu.cs.cs544.domain.Item;
 import edu.miu.cs.cs544.domain.Reservation;
+import edu.miu.cs.cs544.dto.orders.OrderResponse;
 
 public class ReservationAdapter {
-    public static ReservationDto getReservationDto(Reservation reservation) {
-        return new ReservationDto(reservation.getId(), reservation.getCustomer().getId(),
-                reservation.getReservationDate(), reservation.getState(),
-                reservation.getItems(),reservation.getAuditData());
+    public static OrderResponse getReservationDto(Reservation reservation) {
+        return new OrderResponse().buildFromDomain(reservation);
     }
-    public static Reservation getReservation(ReservationDto reservationDto) {
-        return new Reservation(reservationDto.getId(), null,reservationDto.getReservationDate(),
-                reservationDto.getState(), reservationDto.getItemIds());
-    }
+//    public static Reservation getReservation(ReservationDto reservationDto) {
+//        return Reservation.builder().customer(reservationDto.getCustomerId()).reservationDate(reservationDto.getReservationDate()).build();
+//    }
 }
