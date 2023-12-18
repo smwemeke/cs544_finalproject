@@ -1,17 +1,15 @@
 package edu.miu.cs.cs544.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Customer  extends AuditableEntity {
+public class Customer {
 
 	@Id
 	@GeneratedValue
@@ -22,7 +20,8 @@ public class Customer  extends AuditableEntity {
 	private String lastName;
 
 	private String email;
-
+	@Embedded
+	private AuditData auditData;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address physicalAddress;
@@ -30,55 +29,16 @@ public class Customer  extends AuditableEntity {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
 
-	@OneToOne(mappedBy = "customer")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "user_id")
 	private User user;
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
+	public Customer(String firstName, String lastName, String email, AuditData auditData, Address physicalAddress, Address billingAddress, User user) {
 		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
-	}
-
-
-	public Address getPhysicalAddress() {
-		return physicalAddress;
-	}
-
-	public void setPhysicalAddress(Address physicalAddress) {
+		this.auditData = auditData;
 		this.physicalAddress = physicalAddress;
-	}
-
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
 		this.user = user;
 	}
 }
