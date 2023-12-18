@@ -7,6 +7,7 @@ import edu.miu.cs.cs544.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +19,10 @@ public class ProductServiceImpl implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public ProductResponse createProduct(String name, String description, String excerpt, double rate, int maxCapacity, ProductType type) {
+    public ProductResponse createProduct(int id,String name, String description, String excerpt, double rate, int maxCapacity, ProductType type) {
 
         ProductResponse productResponse = new ProductResponse();
-        Product product = new Product(name,description,excerpt,rate,maxCapacity,type);
+        Product product = new Product(id,name,description,excerpt,rate,maxCapacity,type,true);
         productRepository.save(product);
         return productResponse.buildFromDomain(product);
     }
@@ -47,10 +48,14 @@ public class ProductServiceImpl implements ProductService{
         List<Product> products = productRepository.findAll();
         return productResponse.buildProductResponseListFromProductList(products);
     }
+    public List<ProductResponse> findAvailableProducts(){
+        List<ProductResponse> availableProducts = new ArrayList<>();
+        for(ProductResponse pr: getAllProducts()){
+            if(pr.isAvailable()){
+                availableProducts.add(pr);
+            }
+        }
+        return availableProducts;
+    }
 
-//    @Override
-//    public ProductResponse updateProduct(int id, String name, String description, String excerpt, double rate, int maxCapacity, ProductType type) {
-//
-//        return null;
-//    }
 }

@@ -13,7 +13,19 @@ public class Product {
 	private String name; 
 	
 	private String description;
-	
+
+	public Product(int id,String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type,  boolean isAvailable) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.excerpt = excerpt;
+		this.rate = rate;
+		this.maxCapacity = maxCapacity;
+		this.type = type;
+		this.auditData = auditData;
+		this.isAvailable = isAvailable;
+	}
+
 	private String excerpt;
 
 	private Double rate;
@@ -24,5 +36,7 @@ public class Product {
 	private AuditData auditData;
 
 	private boolean isAvailable;
-	
+	public Product(){}
+
+
 }
