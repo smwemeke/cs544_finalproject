@@ -19,7 +19,6 @@ public class ProductController {
     ProductServiceImpl productService;
     @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody ProductResponse productResponse){
-
         productService.createProduct(productResponse);
         return  ResponseEntity.ok(HttpStatus.OK);
     }

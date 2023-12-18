@@ -68,7 +68,6 @@ public class ProductServiceImpl implements ProductService{
             product.setType(productResponse.getType());
             productRepository.save(product);
         }
-
         return productResponse.buildFromDomain(product);
     }
     public List<ProductResponse> findAvailableProducts(){

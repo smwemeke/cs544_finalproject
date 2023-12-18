@@ -19,7 +19,6 @@ public class ProductResponse {
 
     private Double rate;
     private boolean isAvailable;
-
 //    public ProductResponse(String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type,boolean isAvailable) {
 //        this.name = name;
 //        this.description = description;
