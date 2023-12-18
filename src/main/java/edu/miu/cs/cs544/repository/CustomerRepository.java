@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
-    //public Optional<Customer> findById(Integer id);
     public Optional<Customer> findByLastName(String lastName);
     public  void deleteCustomerById(Integer id);
     @Modifying

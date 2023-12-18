@@ -27,6 +27,8 @@ public class CustomerController {
         return new ResponseEntity<>("Welcome", HttpStatus.OK);
     }
 
+
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody CustomerDto request) {
         var response = customerService.register(request);
@@ -42,6 +44,7 @@ public class CustomerController {
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getCustomerById(@PathVariable String id){
         CustomerDto customerDto = customerService.getCustomerById(id);
+
         if(customerDto!=null){
             return new ResponseEntity<>(customerDto, HttpStatus.FOUND);
         }
@@ -56,6 +59,9 @@ public class CustomerController {
         }
         else return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_FOUND.value(), "User not found"), HttpStatus.NOT_FOUND);
     }
+
+
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> removeCustomerByID(@PathVariable String id){

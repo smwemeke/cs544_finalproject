@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface CustomerService {
 
+
+
     List<CustomerDto> getAllCustomers();
     CustomerDto register(CustomerDto customerDto);
 
@@ -18,6 +20,8 @@ public interface CustomerService {
     CustomerDto getCustomerById(String id);
     CustomerDto getCustomerByLastName(String lastName);
     CustomerDto removeCustomerById(Integer id);
+
+
 
 
 
