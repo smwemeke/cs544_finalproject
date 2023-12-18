@@ -19,7 +19,9 @@ public class Product  extends AuditableEntity  {
 	private String name; 
 	
 	private String description;
-	
+
+
+
 	private String excerpt;
 
 	private Double rate;
@@ -27,7 +29,20 @@ public class Product  extends AuditableEntity  {
 	private Integer maxCapacity;
 	@Enumerated
 	private ProductType type;
-
+	@Embedded
+	private AuditData auditData;
 	private boolean isAvailable;
-	
+	public Product(){}
+	public Product(int id,String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type,  boolean isAvailable) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.excerpt = excerpt;
+		this.rate = rate;
+		this.maxCapacity = maxCapacity;
+		this.type = type;
+		//	this.auditData = auditData;
+		this.isAvailable = isAvailable;
+	}
+
 }

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ProductService {
 
-    ProductResponse createProduct(String name, String description, String excerpt, double rate, int maxCapacity, ProductType type);
+    ProductResponse createProduct(int id,String name, String description, String excerpt, double rate, int maxCapacity, ProductType type,boolean isAvailable);
     ProductResponse deleteProduct(int id);
     ProductResponse getProduct(int id);
     List<ProductResponse> getAllProducts();
