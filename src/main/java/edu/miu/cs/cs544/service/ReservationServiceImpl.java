@@ -36,16 +36,6 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findById(id).orElse(null);
     }
 
-//    @Override
-//    public ReservationDto createReservation(ReservationDto reservationDto) {
-//        Reservation reservation = ReservationAdapter.getReservation(reservationDto);
-//    //  Customer customer = customerRepository.findById(reservationDto.getCustomerId()).orElse(null);
-//        Customer customer = new Customer();
-//        customer.setId(reservationDto.getCustomerId());
-//        reservation.setCustomer(customer);
-//        return ReservationAdapter.getReservationDto(reservationRepository.save(reservation));
-//    }
-
     @Override
     @Transactional
     public OrderResponse createReservation(ReservationDto reservationDto) {
@@ -75,7 +65,6 @@ public class ReservationServiceImpl implements ReservationService {
 
         var reservation = reservationRepository.findById(id).get();
         reservation.setReservationDate(updatedReservationDto.getReservationDate());
-        //return ReservationAdapter.getReservationDto(reservationRepository.save(reservation));
 
         return new OrderResponse().buildFromDomain(reservation);
     }
