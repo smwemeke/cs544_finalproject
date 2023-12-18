@@ -14,6 +14,7 @@ import java.util.Collection;
 @Data
 @Builder
 @AllArgsConstructor
+@Table(name="users")
 public class User  extends AuditableEntity  implements UserDetails {
 	@Id
 	@GeneratedValue

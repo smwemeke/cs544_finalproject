@@ -14,14 +14,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @SpringBootApplication
 @EntityScan("edu.miu.cs.cs544.domain")
 @EnableJpaRepositories("edu.miu.cs.cs544.repository")
 public class Application implements CommandLineRunner {
+
     @Autowired
     UserRepository repository;
 
@@ -43,6 +47,7 @@ public class Application implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
         Address physicalAddress = new Address();

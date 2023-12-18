@@ -75,6 +75,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public boolean existsById(int customerId) {
+        return false;
+    }
+
+    @Override
     @Transactional
     public boolean cancel(StateChangeRequest request) {
         var order = orderRepository.findByItemsId(request.getItemId());

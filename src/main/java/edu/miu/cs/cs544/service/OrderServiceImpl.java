@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
+@Service(value="orderServiceImpl")
 public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepository orderRepository;

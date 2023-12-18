@@ -4,10 +4,16 @@ import java.time.LocalDate;
 
 import edu.miu.cs.cs544.dto.orders.CreateItemRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item  extends AuditableEntity {
     @Id
     @GeneratedValue
