@@ -41,18 +41,14 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByUserName(userName);
         return UserDtoAdapter.toUserDto(user);
     }
-@Override
-@Transactional
-    public UserDto removeUserById(Integer id){
-    Optional<User> user = userRepository.findById(id);
-    if (user.isEmpty()) return null;
-    else {
-        userRepository.deleteUserById(id);
-        return UserDtoAdapter.toUserDto(user.get());
-    }
-    }
 
     public UserDto updateUser(String userName, UserDto userDto){
-        return new UserDto();
+        User oldUser = userRepository.findByUserName(userName);
+        if (oldUser == null) return null;
+        if (userDto.getUserName()==null) oldUser.setUserName(userName);
+        else oldUser.setUserName(userDto.getUserName());
+        oldUser.setPassword(userDto.getPassword());
+        userRepository.save(oldUser);
+        return UserDtoAdapter.toUserDto(oldUser);
     }
 }

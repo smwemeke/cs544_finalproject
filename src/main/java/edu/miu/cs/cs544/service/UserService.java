@@ -11,7 +11,5 @@ public interface UserService {
     List<UserDto> getUsers();
     UserDto getUserByUserName(String userName);
 
-    UserDto removeUserById(Integer id);
-
     UserDto updateUser(String userName, UserDto userDto);
 }
