@@ -28,7 +28,8 @@ public class AuditData {
     public AuditData(String createdBy, String updatedBy) {
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
-
+        this.createdOn = LocalDateTime.now();
+        this.updatedOn = LocalDateTime.now();
     }
 
     public String getCreatedBy() {

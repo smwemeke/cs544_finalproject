@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ListProductRequest {
     ProductType type;
+
+    public ListProductRequest(ProductType type, Integer page, Integer len) {
+    }
 }

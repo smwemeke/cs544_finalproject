@@ -4,11 +4,17 @@ import java.time.LocalDate;
 
 import edu.miu.cs.cs544.dto.orders.CreateItemRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class Item {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Item  extends AuditableEntity {
     @Id
     @GeneratedValue
     private Integer id;
@@ -30,8 +36,7 @@ public class Item {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Product product;
 
-    @Embedded
-    private AuditData auditData;
+
 
     public Item buildFromDto(CreateItemRequest request){
         occupants = request.getOccupants();

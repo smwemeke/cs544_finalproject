@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.service;
 
+import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.Item;
 import edu.miu.cs.cs544.domain.ReservationState;
 import edu.miu.cs.cs544.dto.*;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -59,7 +61,6 @@ public class CustomerServiceImpl implements CustomerService{
         orderRepository.save(order);
         return true;
     }
-
     @Override
     @Transactional
     public boolean checkOut(StateChangeRequest request) {
@@ -72,6 +73,13 @@ public class CustomerServiceImpl implements CustomerService{
         item.getProduct().setAvailable(true);
         orderRepository.save(order);
         return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean existsById(int customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        return customer.isPresent();
     }
 
     @Override

@@ -1,7 +1,10 @@
 package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,7 +12,10 @@ import java.util.Collection;
 
 @Entity
 @Data
-public class User implements UserDetails {
+@Builder
+@AllArgsConstructor
+@Table(name="users")
+public class User  extends AuditableEntity  implements UserDetails {
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -21,8 +27,7 @@ public class User implements UserDetails {
 	private Boolean active;
 	@Enumerated
 	private UserType type;
-	@Embedded
-	private AuditData auditData;
+
 
 	@OneToOne
 	private Customer customer;
