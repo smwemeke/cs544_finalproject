@@ -1,10 +1,8 @@
 package edu.miu.cs.cs544.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,10 +10,7 @@ import java.util.Collection;
 
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
-@Table(name="users")
-public class User  extends AuditableEntity  implements UserDetails {
+public class User implements UserDetails {
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -27,18 +22,18 @@ public class User  extends AuditableEntity  implements UserDetails {
 	private Boolean active;
 	@Enumerated
 	private UserType type;
-
-
-	@OneToOne
-	private Customer customer;
+	@Embedded
+	private AuditData auditData;
 
 	public User() {
 	}
 
-	public User(String userName, String userPass, UserType type) {
+	public User(String userName, String userPass, Boolean active, UserType type, AuditData auditData) {
 		this.userName = userName;
 		this.password = userPass;
+		this.active = active;
 		this.type = type;
+		this.auditData = auditData;
 	}
 
 	@Override
