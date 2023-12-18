@@ -32,7 +32,7 @@ public class Product  extends AuditableEntity  {
 	@Embedded
 	private AuditData auditData;
 	private boolean isAvailable;
-	public Product(){}
+
 	public Product(int id,String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type,  boolean isAvailable) {
 		this.id = id;
 		this.name = name;

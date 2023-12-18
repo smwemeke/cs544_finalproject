@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class Payment {
+public class Payment  extends AuditableEntity{
     @Id
     @GeneratedValue
     private Integer id;

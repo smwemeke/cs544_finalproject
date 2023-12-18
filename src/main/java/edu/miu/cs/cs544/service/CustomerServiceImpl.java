@@ -76,14 +76,9 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public boolean existsById(int customerId) {
-        return false;
-    }
-
-    @Override
     @Transactional
     public boolean existsById(int customerId) {
-        Optional<Customer> customer = customerRepository.findCustomerById(customerId);
+        Optional<Customer> customer = customerRepository.findById(customerId);
         return customer.isPresent();
     }
 
