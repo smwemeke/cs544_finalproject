@@ -20,15 +20,15 @@ public class ProductResponse {
     private Double rate;
     private boolean isAvailable;
 
-    public ProductResponse(String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type,boolean isAvailable) {
-        this.name = name;
-        this.description = description;
-        this.excerpt = excerpt;
-        this.rate = rate;
-        this.maxCapacity = maxCapacity;
-        this.type = type;
-        this.isAvailable = isAvailable;
-    }
+//    public ProductResponse(String name, String description, String excerpt, Double rate, Integer maxCapacity, ProductType type,boolean isAvailable) {
+//        this.name = name;
+//        this.description = description;
+//        this.excerpt = excerpt;
+//        this.rate = rate;
+//        this.maxCapacity = maxCapacity;
+//        this.type = type;
+//        this.isAvailable = isAvailable;
+//    }
     public ProductResponse(){}
     private Integer maxCapacity;
 
@@ -85,11 +85,11 @@ public class ProductResponse {
         type= p.getType();
         return this;
     }
-    public List<ProductResponse> buildProductResponseListFromProductList(List<Product> products){
-        List<ProductResponse> productResponses = new ArrayList<>();
-        for(Product p: products){
-            productResponses.add(buildFromDomain(p));
-        }
-        return productResponses;
-    }
+//    public List<ProductResponse> buildProductResponseListFromProductList(List<Product> products){
+//        List<ProductResponse> productResponses = new ArrayList<>();
+//        for(Product p: products){
+//            productResponses.add(buildFromDomain(p));
+//        }
+//        return productResponses;
+//    }
 }

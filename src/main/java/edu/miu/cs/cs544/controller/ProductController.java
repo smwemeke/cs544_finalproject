@@ -1,15 +1,12 @@
 package edu.miu.cs.cs544.controller;
 
-import edu.miu.cs.cs544.domain.Product;
-import edu.miu.cs.cs544.domain.ProductType;
-import edu.miu.cs.cs544.dto.PaymentDto;
+
 import edu.miu.cs.cs544.dto.ProductResponse;
 import edu.miu.cs.cs544.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 
 /**
