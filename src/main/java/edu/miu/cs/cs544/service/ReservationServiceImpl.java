@@ -72,9 +72,6 @@ public class ReservationServiceImpl implements ReservationService {
         reservationRepository.save(reservation);
         return new ReservationResponse().buildFromDomain(reservation);
 
-//        var order = orderRepository.findByItemsId(request.getOrderId());
-//        order.setReservationDate(request.getReservationDate());
-//        return new OrderResponse().buildFromDomain(order);
     }
     @Override
     public void deleteReservation(Integer id) {
