@@ -54,7 +54,6 @@ public class ReservationServiceImpl implements ReservationService {
             return item;
         }).toList();
         reservation.setItems(items);
-//        reservationRepository.save(reservation);
         var savedReservation = reservationRepository.save(reservation);
 
         return ReservationAdapter.getReservationDto(reservation);
