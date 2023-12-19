@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,9 +57,8 @@ public class CustomerServiceImpl implements CustomerService{
             customer.getBillingAddress().setPostalCode(customerDto.getBillingAddress().getPostalCode());
             customer.getBillingAddress().setLine1(customerDto.getBillingAddress().getLine1());
             customer.getBillingAddress().setCity(customerDto.getBillingAddress().getCity());
-
-            Customer newCustomer  = customerRepository.save(customer);
-            return CustomerDtoAdapter.toCustomerDto(Optional.of(newCustomer));
+            customerRepository.save(customer);
+            return CustomerDtoAdapter.toCustomerDto(Optional.of(customer));
         }
     }
     @Override

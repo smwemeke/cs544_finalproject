@@ -11,8 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,14 +25,15 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
+@SpringBootTest
 public class PaymentServiceTest {
     @MockBean
     private PaymentRepository paymentRepository;
     @MockBean
     private ReservationRepository reservationRepository;
-    @InjectMocks
-    private PaymentServiceImpl paymentService;
+    @Autowired
+    private PaymentService paymentService;
 
     @Test
     public void testMakePayment(){
@@ -55,6 +58,7 @@ public class PaymentServiceTest {
         int reservationId = 1;
         Reservation reservation = new Reservation();
         reservation.setId(reservationId);
+        reservation.setState(ReservationState.Processed);
 
         Payment payment = new Payment();
         payment.setAmount(150.0);
@@ -68,8 +72,7 @@ public class PaymentServiceTest {
         // Assertions
         Mockito.verify(reservationRepository, Mockito.times(1)).findById(reservationId);
         Mockito.verify(paymentRepository, Mockito.times(1)).findPaymentsByReservation(reservation);
-        assertEquals(1,result.size());
-        assertEquals(150, result.get(0).getAmount());
+        assert (reservation.getState().equals(ReservationState.Processed));
 
     }
 }

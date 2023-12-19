@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
-    // hello
-    @PostMapping("/hello")
-    public ResponseEntity<?> hello() {
-        return new ResponseEntity<>("Welcome", HttpStatus.OK);
-    }
 
     // Get all users
     @GetMapping("")
@@ -26,7 +21,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{userName}")
+    @PutMapping("{userName}")
     public ResponseEntity<?> updateUser(@PathVariable String userName, @RequestBody UserDto request){
 
         UserDto response = userService.updateUser(userName, request);

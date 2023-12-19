@@ -1,5 +1,4 @@
 package edu.miu.cs.cs544.service;
-
 import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.User;
 import edu.miu.cs.cs544.dto.CustomerDtoAdapter;
@@ -21,7 +20,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     PasswordEncoder encoder;
 
-
     @Override
     public List<UserDto> getUsers() {
 
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService{
         if (oldUser == null) return null;
         if (userDto.getUserName()==null) oldUser.setUserName(userName);
         else oldUser.setUserName(userDto.getUserName());
-        oldUser.setPassword(userDto.getPassword());
+        oldUser.setPassword(encoder.encode(userDto.getPassword()));
         userRepository.save(oldUser);
         return UserDtoAdapter.toUserDto(oldUser);
     }
