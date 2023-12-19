@@ -61,28 +61,28 @@ public class ReservationsController {
         return new ResponseEntity<>("Order is Successfully placed, you will receive confirmation within 24 hrs", HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/orders/items/{itemId}/checkins")
-    public ResponseEntity<?> CheckIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-        int customerId = request.getCustomerId();
-        if (!customerService.existsById(customerId)){
-            return  new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(customerService.checkIn(request), HttpStatus.OK) ;
-    }
-    @PostMapping("/orders/items/{itemId}/checkouts")
-    public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-         int customerId = request.getCustomerId();
-         if(!customerService.existsById(customerId)){
-             return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
-         }
-        return new ResponseEntity<>(customerService.checkOut(request), HttpStatus.OK) ;
-    }
-    @PostMapping("/orders/items/{itemId}/cancels")
-    public ResponseEntity<?> cancel(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-        int customerId = request.getCustomerId();
-        if(!customerService.existsById(customerId)){
-            return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(customerService.cancel(request), HttpStatus.OK) ;
-    }
+//    @PostMapping("/orders/items/{itemId}/checkins")
+//    public ResponseEntity<?> CheckIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+//        int customerId = request.getCustomerId();
+//        if (!customerService.existsById(customerId)){
+//            return  new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+//        }
+//        return new ResponseEntity<>(customerService.checkIn(request), HttpStatus.OK) ;
+//    }
+//    @PostMapping("/orders/items/{itemId}/checkouts")
+//    public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+//         int customerId = request.getCustomerId();
+//         if(!customerService.existsById(customerId)){
+//             return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+//         }
+//        return new ResponseEntity<>(customerService.checkOut(request), HttpStatus.OK) ;
+//    }
+//    @PostMapping("/orders/items/{itemId}/cancels")
+//    public ResponseEntity<?> cancel(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+//        int customerId = request.getCustomerId();
+//        if(!customerService.existsById(customerId)){
+//            return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+//        }
+//        return new ResponseEntity<>(customerService.cancel(request), HttpStatus.OK) ;
+//    }
 }
