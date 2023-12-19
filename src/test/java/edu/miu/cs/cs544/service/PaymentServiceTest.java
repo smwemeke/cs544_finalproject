@@ -11,8 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,14 +25,15 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
+@SpringBootTest
 public class PaymentServiceTest {
     @MockBean
     private PaymentRepository paymentRepository;
     @MockBean
     private ReservationRepository reservationRepository;
-    @InjectMocks
-    private PaymentServiceImpl paymentService;
+    @Autowired
+    private PaymentService paymentService;
 
     @Test
     public void testMakePayment(){
