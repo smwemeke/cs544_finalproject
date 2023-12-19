@@ -17,6 +17,8 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     public Optional<Customer> findByLastName(String lastName);
     public  void deleteCustomerById(Integer id);
+
+    Customer findCustomerById(int customerId);
 //    @Modifying
 //    @Query("UPDATE Customer c SET c.user = :newUser, c.email = :newEmail, c.auditData = :newAudit, c.firstName = :firstName," +
 //            "c.lastName = :lastName, c.physicalAddress = :physicalAddress, c.billingAddress = :billingAddress" +

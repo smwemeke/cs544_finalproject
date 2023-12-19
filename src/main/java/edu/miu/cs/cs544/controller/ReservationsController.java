@@ -3,12 +3,17 @@ package edu.miu.cs.cs544.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import edu.miu.cs.cs544.domain.Item;
+import edu.miu.cs.cs544.domain.ReservationState;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
 import edu.miu.cs.cs544.dto.orders.UpdateOrderRequest;
 import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
 import edu.miu.cs.cs544.integration.jms.JMSSender;
+import edu.miu.cs.cs544.repository.OrderRepository;
+import edu.miu.cs.cs544.service.AdminService;
 import edu.miu.cs.cs544.service.CustomerService;
 import edu.miu.cs.cs544.service.OrderService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +30,13 @@ public class ReservationsController {
 
     @Autowired
     CustomerService customerService;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Autowired
     JMSSender sender;
+    @Autowired
+    AdminService adminService;
 
     @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderDetail(@PathVariable Integer orderId) {
@@ -61,28 +70,28 @@ public class ReservationsController {
         return new ResponseEntity<>("Order is Successfully placed, you will receive confirmation within 24 hrs", HttpStatus.ACCEPTED);
     }
 
-//    @PostMapping("/orders/items/{itemId}/checkins")
-//    public ResponseEntity<?> CheckIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-//        int customerId = request.getCustomerId();
-//        if (!customerService.existsById(customerId)){
-//            return  new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
-//        }
-//        return new ResponseEntity<>(customerService.checkIn(request), HttpStatus.OK) ;
-//    }
-//    @PostMapping("/orders/items/{itemId}/checkouts")
-//    public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-//         int customerId = request.getCustomerId();
-//         if(!customerService.existsById(customerId)){
-//             return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
-//         }
-//        return new ResponseEntity<>(customerService.checkOut(request), HttpStatus.OK) ;
-//    }
-//    @PostMapping("/orders/items/{itemId}/cancels")
-//    public ResponseEntity<?> cancel(@PathVariable int itemId,@RequestBody StateChangeRequest request){
-//        int customerId = request.getCustomerId();
-//        if(!customerService.existsById(customerId)){
-//            return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
-//        }
-//        return new ResponseEntity<>(customerService.cancel(request), HttpStatus.OK) ;
-//    }
+    @PostMapping("/orders/items/{itemId}/checkins")
+    public ResponseEntity<?> CheckIn(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+        int customerId = request.getCustomerId();
+        if (!adminService.existsById(customerId)){
+            return  new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(adminService.checkIn(request), HttpStatus.OK) ;
+    }
+    @PostMapping("/orders/items/{itemId}/checkouts")
+    public ResponseEntity<?> checkOut(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+         int customerId = request.getCustomerId();
+         if(!adminService.existsById(customerId)){
+             return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+         }
+        return new ResponseEntity<>(adminService.checkOut(request), HttpStatus.OK) ;
+    }
+        @PostMapping("/orders/items/{itemId}/cancels")
+    public ResponseEntity<?> cancel(@PathVariable int itemId,@RequestBody StateChangeRequest request){
+        int customerId = request.getCustomerId();
+        if(!customerService.customerExistsById(customerId)){
+            return new ResponseEntity<>("Customer with ID" + customerId + "does not exist",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(customerService.cancel(request), HttpStatus.OK) ;
+    }
 }
