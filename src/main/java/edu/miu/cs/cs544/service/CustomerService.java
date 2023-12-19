@@ -21,6 +21,8 @@ public interface CustomerService {
     CustomerDto getCustomerByLastName(String lastName);
     CustomerDto removeCustomerById(Integer id);
 
+    boolean cancel(StateChangeRequest request);
 
 
+    boolean customerExistsById(int customerId);
 }

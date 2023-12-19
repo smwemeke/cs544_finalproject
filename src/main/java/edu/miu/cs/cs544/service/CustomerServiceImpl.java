@@ -3,8 +3,10 @@ package edu.miu.cs.cs544.service;
 import edu.miu.cs.cs544.domain.*;
 import edu.miu.cs.cs544.dto.*;
 
+import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 
+import edu.miu.cs.cs544.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Override
     @Transactional
@@ -69,9 +73,6 @@ public class CustomerServiceImpl implements CustomerService{
         Optional<Customer> customer = customerRepository.findByLastName(lastName);
         return CustomerDtoAdapter.toCustomerDto(customer);
     }
-
-
-
     @Override
     @Transactional
     public CustomerDto removeCustomerById(Integer id){
@@ -81,6 +82,23 @@ public class CustomerServiceImpl implements CustomerService{
             customerRepository.deleteCustomerById(id);
             return CustomerDtoAdapter.toCustomerDto(customer);
         }
-
+    }
+    @Override
+    @Transactional
+    public boolean cancel(StateChangeRequest request) {
+        var order = orderRepository.findByItemsId(request.getItemId());
+        if(!order.getCustomer().getId().equals(request.getCustomerId()))
+            return false;
+        Item item = order.getItems().stream().filter(i->i.getId().equals(request.getItemId())).findFirst().get();
+        order.setState(ReservationState.Cancelled);
+        item.getProduct().setAvailable(true);
+        orderRepository.save(order);
+        return true;
+    }
+    @Override
+    @Transactional
+    public boolean customerExistsById(int customerId) {
+        Optional<Customer> customer = Optional.of(customerRepository.findCustomerById(customerId));
+        return customer.isPresent();
     }
 }
