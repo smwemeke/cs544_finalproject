@@ -2,8 +2,10 @@ package edu.miu.cs.cs544.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,10 +14,12 @@ import java.util.Collection;
 @Entity
 @Data
 @Builder
+@AllArgsConstructor
 public class User implements UserDetails {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
 	private String userName;
 	
 	private String password;

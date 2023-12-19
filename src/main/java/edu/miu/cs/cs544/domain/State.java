@@ -15,6 +15,6 @@ public class State  extends AuditableEntity {
 	private String name;
 
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Country country;
 }

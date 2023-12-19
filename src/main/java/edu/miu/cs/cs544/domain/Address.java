@@ -21,7 +21,7 @@ public class Address extends AuditableEntity {
 	private AddressType type;
 
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private State state;
 
 	public Address() {
