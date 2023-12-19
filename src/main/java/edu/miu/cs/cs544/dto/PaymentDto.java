@@ -14,7 +14,7 @@ public class PaymentDto {
     private LocalDate paymentDate;
 
     public PaymentDto buildFromDomain(Payment payment){
-        id = payment.getId();
+       // id = payment.getId();
         reservationId = payment.getReservation().getId();
         amount = payment.getAmount();
         paymentDate = payment.getPaymentDate();
