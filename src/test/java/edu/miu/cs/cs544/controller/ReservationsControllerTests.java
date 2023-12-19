@@ -1,4 +1,4 @@
-package edu.miu.cs.cs544.cs544.controller;
+package edu.miu.cs.cs544.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -1,4 +1,4 @@
-package edu.miu.cs.cs544.cs544.repository;
+package edu.miu.cs.cs544.repository;
 
 import edu.miu.cs.cs544.domain.Payment;
 import edu.miu.cs.cs544.domain.Reservation;
