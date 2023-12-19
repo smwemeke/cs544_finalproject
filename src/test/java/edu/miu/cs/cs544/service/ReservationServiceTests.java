@@ -11,11 +11,13 @@ import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.ProductRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
+import edu.miu.cs.cs544.repository.UserRepository;
 import edu.miu.cs.cs544.service.LoginService;
 import edu.miu.cs.cs544.service.OrderService;
 import edu.miu.cs.cs544.service.OrderServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -57,6 +59,7 @@ public class ReservationServiceTests {
     private PasswordEncoder encoder;
     @MockBean
     LoginService loginService;
+
     @Autowired
     TestEntityManager entityManager;
 
@@ -68,6 +71,9 @@ public class ReservationServiceTests {
 
     @MockBean
     ProductRepository productRepository;
+
+    @MockBean
+    UserRepository userRepository;
 
     @Autowired
     OrderService service;

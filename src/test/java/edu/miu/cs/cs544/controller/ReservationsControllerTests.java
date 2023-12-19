@@ -6,6 +6,7 @@ import edu.miu.cs.cs544.dto.orders.CreateItemRequest;
 import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
 import edu.miu.cs.cs544.integration.jms.JMSSender;
 import edu.miu.cs.cs544.repository.OrderRepository;
+import edu.miu.cs.cs544.service.AdminService;
 import edu.miu.cs.cs544.service.CustomerService;
 import edu.miu.cs.cs544.service.OrderService;
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class ReservationsControllerTests {
 
     @MockBean
     OrderRepository orderRepository;
+
+    @MockBean
+    AdminService adminService;
 
     @Test
     public void createReservation_Test_success() throws Exception {
