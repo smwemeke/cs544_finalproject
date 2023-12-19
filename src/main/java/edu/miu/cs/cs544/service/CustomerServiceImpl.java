@@ -2,20 +2,13 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.cs.cs544.domain.*;
 import edu.miu.cs.cs544.dto.*;
-import edu.miu.cs.cs544.dto.orders.PlaceOrderRequest;
-import edu.miu.cs.cs544.dto.orders.OrderResponse;
-import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
-import edu.miu.cs.cs544.repository.AddressRepository;
+
 import edu.miu.cs.cs544.repository.CustomerRepository;
-import edu.miu.cs.cs544.repository.OrderRepository;
-import edu.miu.cs.cs544.repository.ProductRepository;
-import jakarta.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,31 +37,31 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     @Transactional
     public CustomerDto updateCustomer(Integer id, CustomerDto customerDto){
-       Optional<Customer> oldCustomer = customerRepository.findById(id);
-       if(oldCustomer.isEmpty()) return null;
-       else{
-           Customer customer = oldCustomer.get();
-           customer.setLastName(customerDto.getLastName());
-           customer.setFirstName(customerDto.getFirstName());
-           customer.setEmail(customerDto.getEmail());
+        Optional<Customer> oldCustomer = customerRepository.findById(id);
+        if(oldCustomer.isEmpty()) return null;
+        else{
+            Customer customer = oldCustomer.get();
+            customer.setLastName(customerDto.getLastName());
+            customer.setFirstName(customerDto.getFirstName());
+            customer.setEmail(customerDto.getEmail());
 
-           customer.getPhysicalAddress().setPostalCode(customerDto.getPhysicalAddress().getPostalCode());
-           customer.getPhysicalAddress().setLine1(customerDto.getPhysicalAddress().getLine1());
-           customer.getBillingAddress().setCity(customerDto.getPhysicalAddress().getCity());
+            customer.getPhysicalAddress().setPostalCode(customerDto.getPhysicalAddress().getPostalCode());
+            customer.getPhysicalAddress().setLine1(customerDto.getPhysicalAddress().getLine1());
+            customer.getBillingAddress().setCity(customerDto.getPhysicalAddress().getCity());
 
-           customer.getBillingAddress().setPostalCode(customerDto.getBillingAddress().getPostalCode());
-           customer.getBillingAddress().setLine1(customerDto.getBillingAddress().getLine1());
-           customer.getBillingAddress().setCity(customerDto.getBillingAddress().getCity());
+            customer.getBillingAddress().setPostalCode(customerDto.getBillingAddress().getPostalCode());
+            customer.getBillingAddress().setLine1(customerDto.getBillingAddress().getLine1());
+            customer.getBillingAddress().setCity(customerDto.getBillingAddress().getCity());
 
-           Customer newCustomer  = customerRepository.save(customer);
-           return CustomerDtoAdapter.toCustomerDto(Optional.of(newCustomer));
-       }
+            Customer newCustomer  = customerRepository.save(customer);
+            return CustomerDtoAdapter.toCustomerDto(Optional.of(newCustomer));
+        }
     }
-@Override
-@Transactional
+    @Override
+    @Transactional
     public CustomerDto getCustomerById(String id){
         Optional<Customer> customer = customerRepository.findById(Integer.valueOf(id));
-    return CustomerDtoAdapter.toCustomerDto(customer);
+        return CustomerDtoAdapter.toCustomerDto(customer);
     }
     @Override
     @Transactional
