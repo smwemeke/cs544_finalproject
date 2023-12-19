@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.miu.cs.cs544.dto.orders.CreateItemRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,9 +32,10 @@ public class Item  extends AuditableEntity {
 
     @ManyToOne
     @JoinColumn(name = "orderId")
+    @JsonIgnore
     private Reservation order;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Product product;
 
 
