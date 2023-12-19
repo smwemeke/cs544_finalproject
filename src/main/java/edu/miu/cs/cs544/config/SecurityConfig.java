@@ -72,6 +72,8 @@ public class SecurityConfig{
 
                 .authorizeRequests()
                 //.requestMatchers("/**").permitAll();
+                .requestMatchers("/customers/**").permitAll()
+                .requestMatchers("/users/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/reservations").permitAll()
                 .requestMatchers("/reservations/**").permitAll()

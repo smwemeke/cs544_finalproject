@@ -15,6 +15,7 @@ import java.util.Collection;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 	@Id
@@ -30,9 +31,6 @@ public class User implements UserDetails {
 	private UserType type;
 	@Embedded
 	private AuditData auditData;
-
-	public User() {
-	}
 
 	public User(String userName, String userPass, Boolean active, UserType type, AuditData auditData) {
 		this.userName = userName;

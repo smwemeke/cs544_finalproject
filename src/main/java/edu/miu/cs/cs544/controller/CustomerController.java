@@ -32,7 +32,8 @@ public class CustomerController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody CustomerDto request) {
         var response = customerService.register(request);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        if (response !=null) return new ResponseEntity<>(response, HttpStatus.OK);
+        else return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_MODIFIED.value(), "customer Not updated"), HttpStatus.NOT_FOUND);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateCustomer(@PathVariable String id, @RequestBody CustomerDto request){
@@ -50,7 +51,6 @@ public class CustomerController {
         }
         else return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_FOUND.value(), "User not found"), HttpStatus.NOT_FOUND);
     }
-
     @GetMapping("/lastname/{lastName}")
     public ResponseEntity<?> getCustomerlastName(@PathVariable String lastName){
         CustomerDto customerDto = customerService.getCustomerByLastName(lastName);
