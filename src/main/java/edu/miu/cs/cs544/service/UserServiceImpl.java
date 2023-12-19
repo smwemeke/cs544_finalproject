@@ -9,7 +9,6 @@ import edu.miu.cs.cs544.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,13 +20,6 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     @Autowired
     PasswordEncoder encoder;
-    @Override
-    public UserDto register(UserDto request){
-        User user = UserDtoAdapter.toUser(request);
-        user.setPassword(encoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return request;
-    }
 
 
     @Override

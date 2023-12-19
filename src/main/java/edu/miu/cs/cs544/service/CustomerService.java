@@ -23,20 +23,4 @@ public interface CustomerService {
 
 
 
-
-
-
-
-
-//    OrderResponse placeOrder(PlaceOrderRequest request);
-//
-//
-//    boolean isAvailable(int productId);
-//
-//    List<ProductResponse> listAllProduct(ListProductRequest request, boolean isAvailable);
-//
-//    boolean checkIn(StateChangeRequest request);
-//    boolean cancel(StateChangeRequest request);
-//    boolean checkOut(StateChangeRequest request);
-
 }
