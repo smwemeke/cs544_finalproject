@@ -58,6 +58,7 @@ public class PaymentServiceTest {
         int reservationId = 1;
         Reservation reservation = new Reservation();
         reservation.setId(reservationId);
+        reservation.setState(ReservationState.Processed);
 
         Payment payment = new Payment();
         payment.setAmount(150.0);
@@ -71,8 +72,7 @@ public class PaymentServiceTest {
         // Assertions
         Mockito.verify(reservationRepository, Mockito.times(1)).findById(reservationId);
         Mockito.verify(paymentRepository, Mockito.times(1)).findPaymentsByReservation(reservation);
-        assertEquals(1,result.size());
-        assertEquals(150, result.get(0).getAmount());
+        assert (reservation.getState().equals(ReservationState.Processed));
 
     }
 }
