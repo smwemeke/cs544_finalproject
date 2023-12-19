@@ -6,6 +6,7 @@ import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.dto.ReservationAdapter;
 import edu.miu.cs.cs544.dto.ReservationDto;
 import edu.miu.cs.cs544.dto.orders.OrderResponse;
+import edu.miu.cs.cs544.dto.orders.ReservationResponse;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.ProductRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
@@ -27,18 +28,18 @@ public class ReservationServiceImpl implements ReservationService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
+    public List<ReservationResponse> getAllReservations() {
+        return reservationRepository.findAll().stream().map(ReservationAdapter::getReservationDto).toList();
     }
 
     @Override
-    public Reservation getReservationById(Integer id) {
-        return reservationRepository.findById(id).orElse(null);
+    public ReservationResponse getReservationById(Integer id) {
+        return ReservationAdapter.getReservationDto(reservationRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional
-    public OrderResponse createReservation(ReservationDto reservationDto) {
+    public ReservationResponse createReservation(ReservationDto reservationDto) {
         Reservation reservation =  new Reservation();
         Customer customer = customerRepository.findById(reservationDto.getCustomerId()).orElse(null);
         if (customer == null) {
@@ -60,12 +61,17 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public OrderResponse updateReservation(Integer id, ReservationDto updatedReservationDto) {
+    public ReservationResponse updateReservation(Integer id, ReservationDto updatedReservationDto) {
 
         var reservation = reservationRepository.findById(id).get();
+//        System.out.println("reservation: " + reservation);
+        if (reservation == null) {
+            throw new IllegalArgumentException("Reservation with id " + id + " does not exist");
+        }
         reservation.setReservationDate(updatedReservationDto.getReservationDate());
+        reservationRepository.save(reservation);
+        return new ReservationResponse().buildFromDomain(reservation);
 
-        return new OrderResponse().buildFromDomain(reservation);
     }
     @Override
     public void deleteReservation(Integer id) {
