@@ -21,15 +21,8 @@ public class CustomerController {
     public ResponseEntity<?> getAllCustomers() {
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
-    @PostMapping("/hello")
-    public ResponseEntity<?> hello() {
 
-        return new ResponseEntity<>("Welcome", HttpStatus.OK);
-    }
-
-
-
-    @PostMapping("/register")
+    @PostMapping("")
     public ResponseEntity<?> register(@RequestBody CustomerDto request) {
         var response = customerService.register(request);
         if (response !=null) return new ResponseEntity<>(response, HttpStatus.OK);
@@ -60,9 +53,6 @@ public class CustomerController {
         else return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_FOUND.value(), "User not found"), HttpStatus.NOT_FOUND);
     }
 
-
-
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> removeCustomerByID(@PathVariable String id){
         CustomerDto customerDto = customerService.removeCustomerById(Integer.valueOf(id));
@@ -71,11 +61,5 @@ public class CustomerController {
         }
         else return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_FOUND.value(), "User with this ID not found"), HttpStatus.NOT_FOUND);
     }
-    // Note Completed
-    @PatchMapping("/update/{id}")
-    public ResponseEntity<?> updateById(@PathVariable String id, @RequestBody Object ob){
-        return new ResponseEntity<>(new CustomerDto(), HttpStatus.OK);
-    }
-
 
 }
