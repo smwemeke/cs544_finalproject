@@ -7,6 +7,7 @@ import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.OrderRepository;
 import edu.miu.cs.cs544.repository.ProductRepository;
+import edu.miu.cs.cs544.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,32 +22,34 @@ public class AdminServiceImpl implements AdminService{
     @Autowired
     OrderRepository orderRepository;
     @Autowired
+    ReservationRepository reservationRepository;
+    @Autowired
     CustomerRepository customerRepository;
 
         @Override
     @Transactional
     public boolean checkIn(StateChangeRequest request) {
-        var order = orderRepository.findByItemsId(request.getItemId());
+        var order = reservationRepository.findByItemsId(request.getItemId());
         if(!order.getCustomer().getId().equals(request.getCustomerId()))
             return false;
         Item item = order.getItems().stream().filter(i->i.getId().equals( request.getItemId())).findFirst().get();
         item.setCheckinDate(LocalDate.now());
         order.setState(ReservationState.Arrived);
-        orderRepository.save(order);
+            reservationRepository.save(order);
         return true;
     }
 
     @Override
     @Transactional
     public boolean checkOut(StateChangeRequest request) {
-        var order = orderRepository.findByItemsId(request.getItemId());
+        var order = reservationRepository.findByItemsId(request.getItemId());
         if(!order.getCustomer().getId().equals(request.getCustomerId()))
             return false;
         Item item = order.getItems().stream().filter(i->i.getId().equals( request.getItemId())).findFirst().get();
         order.setState(ReservationState.Departed);
         item.setCheckoutDate(LocalDate.now());
         item.getProduct().setAvailable(true);
-        orderRepository.save(order);
+        reservationRepository.save(order);
         return true;
     }
     @Override
