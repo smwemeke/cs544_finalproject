@@ -24,7 +24,8 @@ public class PaymentServiceImpl implements PaymentService{
     public void makePayment(PaymentDto paymentDto) {
          Payment payment = new Payment();
         Optional<Reservation> reservation = reservationRepository.findById(paymentDto.getReservationId());
-        payment.setPaymentDate(LocalDate.now());
+        payment.setId(paymentDto.getId());
+        payment.setPaymentDate(paymentDto.getPaymentDate());
         payment.setAmount(paymentDto.getAmount());
         payment.setReservation(reservation.get());
         paymentRepository.save(payment);
@@ -35,6 +36,5 @@ public class PaymentServiceImpl implements PaymentService{
     public List<PaymentDto> getPaymentsForReservation(Integer reservationId) {
         Optional<Reservation> reservation = reservationRepository.findById(reservationId);
        return  paymentRepository.findPaymentsByReservation(reservation.get()).stream().map(r -> new PaymentDto().buildFromDomain(r)).toList();
-        //return null;
     }
 }
