@@ -77,6 +77,7 @@ public class SecurityConfig{
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/reservations").permitAll()
                 .requestMatchers("/payment").permitAll()
+                .requestMatchers("/payment/**").permitAll()
                 .requestMatchers("/reservations/**").permitAll()
                 .requestMatchers("/customers/**").permitAll()
                 .requestMatchers("/admin_res/**").permitAll()
