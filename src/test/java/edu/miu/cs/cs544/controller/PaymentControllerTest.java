@@ -50,6 +50,7 @@ public class PaymentControllerTest {
         paymentDto.setAmount(300);
         paymentDto.setPaymentDate(LocalDate.now());
 
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         var contentJson = mapper.writeValueAsString(paymentDto);
