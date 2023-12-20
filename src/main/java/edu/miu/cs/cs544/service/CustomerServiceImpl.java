@@ -7,6 +7,7 @@ import edu.miu.cs.cs544.dto.orders.StateChangeRequest;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 
 import edu.miu.cs.cs544.repository.OrderRepository;
+import edu.miu.cs.cs544.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,8 @@ public class CustomerServiceImpl implements CustomerService{
     private CustomerRepository customerRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    ReservationRepository reservationRepository;
 
     @Override
     @Transactional
@@ -86,13 +89,13 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     @Transactional
     public boolean cancel(StateChangeRequest request) {
-        var order = orderRepository.findByItemsId(request.getItemId());
+        var order = reservationRepository.findByItemsId(request.getItemId());
         if(!order.getCustomer().getId().equals(request.getCustomerId()))
             return false;
         Item item = order.getItems().stream().filter(i->i.getId().equals(request.getItemId())).findFirst().get();
         order.setState(ReservationState.Cancelled);
         item.getProduct().setAvailable(true);
-        orderRepository.save(order);
+        reservationRepository.save(order);
         return true;
     }
     @Override
