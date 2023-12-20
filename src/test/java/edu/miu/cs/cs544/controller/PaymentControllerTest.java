@@ -63,33 +63,4 @@ public class PaymentControllerTest {
         verify(paymentService, times(1)).makePayment(paymentDto);
 
     }
-//    @Test
-//    public void testGetPaymentsForReservation() throws Exception {
-//        Reservation reservation = new Reservation();
-//        reservation.setId(1);
-//
-//        PaymentDto paymentDto = new PaymentDto();
-//        paymentDto.setReservationId(1);
-//        paymentDto.setAmount(200.0);
-//        paymentDto.setPaymentDate(LocalDate.now());
-//
-//        PaymentDto paymentDto1 = new PaymentDto();
-//        paymentDto1.setReservationId(1);
-//        paymentDto1.setAmount(300.0);
-//        paymentDto1.setPaymentDate(LocalDate.now());
-//
-//        List<PaymentDto> paymentDtoList = new ArrayList();
-//        paymentDtoList.add(paymentDto1);
-//        paymentDtoList.add(paymentDto);
-//
-//        ObjectMapper mapper=new ObjectMapper();
-//        mapper.registerModule(new JavaTimeModule());
-//        var contentJson = mapper.writeValueAsString( paymentDtoList);
-//
-//        Mockito.when(paymentService.getPaymentsForReservation(Mockito.anyInt())).thenReturn(paymentDtoList);
-//        mockMvc.perform(MockMvcRequestBuilders.get("/payment/{reservationId}")
-//                        .content(contentJson)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
     }

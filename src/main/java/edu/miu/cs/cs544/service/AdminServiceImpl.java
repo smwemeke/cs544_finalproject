@@ -55,18 +55,6 @@ public class AdminServiceImpl implements AdminService{
         Optional<Customer> customer = Optional.of(customerRepository.findCustomerById(customerId));
         return customer.isPresent();
     }
-//    @Override
-//    @Transactional
-//    public boolean cancel(StateChangeRequest request) {
-//        var order = orderRepository.findByItemsId(request.getItemId());
-//        if(!order.getCustomer().getId().equals(request.getCustomerId()))
-//            return false;
-//        Item item = order.getItems().stream().filter(i->i.getId().equals( request.getItemId())).findFirst().get();
-//        order.setState(ReservationState.Cancelled);
-//        item.getProduct().setAvailable(true);
-//        orderRepository.save(order);
-//        return true;
-//    }
 }
 
 
